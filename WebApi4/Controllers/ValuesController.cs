@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace WebApi4.Controllers
 {
@@ -12,9 +15,23 @@ namespace WebApi4.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
-            return new string[] { "Carlos", "Almeida" };
+            /*Calling API http://openweathermap.org/api */
+        HttpWebRequest apiRequest =
+        WebRequest.Create("https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22") as HttpWebRequest;
+
+        string apiResponse = "";
+        using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
+        {
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            apiResponse = reader.ReadToEnd();
+        }
+        /*End*/
+
+        /*http://json2csharp.com*/
+        //ResponseWeather rootObject = JsonConvert.DeserializeObject<ResponseWeather>(apiResponse);
+        return apiResponse;
         }
 
         // GET api/values/5
