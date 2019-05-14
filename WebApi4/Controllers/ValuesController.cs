@@ -17,9 +17,7 @@ namespace WebApi4.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
-            /*Calling API http://openweathermap.org/api */
-            HttpWebRequest apiRequest =
-            WebRequest.Create("https://swapi.co/api/people/") as HttpWebRequest;
+            HttpWebRequest apiRequest = WebRequest.Create("https://swapi.co/api/people/") as HttpWebRequest;
 
             string apiResponse = "";
             using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
@@ -27,7 +25,6 @@ namespace WebApi4.Controllers
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 apiResponse = reader.ReadToEnd();
             }
-            /*End*/
 
             return apiResponse;
         }
@@ -36,7 +33,16 @@ namespace WebApi4.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            return "value";
+            HttpWebRequest apiRequest = WebRequest.Create("https://swapi.co/api/people/" + id.ToString()) as HttpWebRequest;
+
+            string apiResponse = "";
+            using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
+            {
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                apiResponse = reader.ReadToEnd();
+            }
+
+            return apiResponse;
         }
 
         // POST api/values
