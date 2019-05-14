@@ -18,20 +18,18 @@ namespace WebApi4.Controllers
         public ActionResult<string> Get()
         {
             /*Calling API http://openweathermap.org/api */
-        HttpWebRequest apiRequest =
-        WebRequest.Create("https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22") as HttpWebRequest;
+            HttpWebRequest apiRequest =
+            WebRequest.Create("https://swapi.co/api/people/") as HttpWebRequest;
 
-        string apiResponse = "";
-        using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
-        {
-            StreamReader reader = new StreamReader(response.GetResponseStream());
-            apiResponse = reader.ReadToEnd();
-        }
-        /*End*/
+            string apiResponse = "";
+            using (HttpWebResponse response = apiRequest.GetResponse() as HttpWebResponse)
+            {
+                StreamReader reader = new StreamReader(response.GetResponseStream());
+                apiResponse = reader.ReadToEnd();
+            }
+            /*End*/
 
-        /*http://json2csharp.com*/
-        //ResponseWeather rootObject = JsonConvert.DeserializeObject<ResponseWeather>(apiResponse);
-        return apiResponse;
+            return apiResponse;
         }
 
         // GET api/values/5
